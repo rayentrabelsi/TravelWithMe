@@ -1,0 +1,53 @@
+<h1>Bonjour {{ n }} <h1>
+{% set a=5 %}
+{{ a }}
+<br>
+
+{# tableau indexee#}
+{% set tab=[1,2,3] %}
+
+{% for i in tab %}
+      {{ i }}
+{% endfor %}
+
+<br>
+
+{% set ch1="Hello" %}
+la chaine est: {{ch1}}
+
+<br>
+
+{# tableau associatif#}
+{% set tab2={'nom':'foulen','prenom':'ben foulen'}%}
+{% for key,value in tab2 %}
+      {{ key }} : {{ value }}
+{% endfor %}
+
+<br>
+
+{% set b=3 %}
+{% if b==1 %}
+c'est correct
+   {% else %}
+   c'est faux
+   {% endif %}
+
+<br>{# 2 eme methode #}  
+
+{{ b==1 ? 'Cest correct' :'Cest faux'}} {# syntaxe tertiaire #}
+
+<br>
+
+{# filtre #}
+{% set ch4="hello" %}
+{{ ch4|upper }}
+
+
+{{ dump(tab) }}
+
+<a href="{{ url('app_author') }}"> Home URL </a>
+
+<br>
+<a href="{{ path('app_author') }}"> Home PATH </a>
+<br>
+<img src="{{ asset('images/Taha_hussein.jpg') }}">

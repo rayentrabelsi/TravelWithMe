@@ -1,0 +1,30 @@
+<html>
+<head>
+   <title>Show List Author</title>
+</head>
+<body>
+    <h1>List Author</h1>
+{% if authors is empty %}
+    {{ "is empty" }}
+{% else %}
+    {% set rayen = 0 %}
+    {% for author in authors %}
+        {{ author.id }}
+        {{ author.picture }}
+        {{ author.username|upper }}
+        {{ author.email }}
+        {{ author.nb_books}}
+        <a href="{{ url('ray',{'id':'1'})}}"> Details </a>
+        <br>
+        {% set rayen = rayen + author.nb_books %}
+
+    {% endfor %}
+{% endif %}
+
+<br>
+le nb: {{ authors | length}}
+<br>
+{{ rayen }}
+
+</body>
+</html>
