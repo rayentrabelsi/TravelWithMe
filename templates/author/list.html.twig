@@ -14,7 +14,7 @@
         {{ author.username|upper }}
         {{ author.email }}
         {{ author.nb_books}}
-        <a href="{{ url('ray',{'id':'1'})}}"> Details </a>
+        <a href="{{ path('ray', {'id': author.id}) }}">Details</a>
         <br>
         {% set rayen = rayen + author.nb_books %}
 
