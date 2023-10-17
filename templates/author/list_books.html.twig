@@ -1,0 +1,42 @@
+<html>
+<head>
+
+
+</head>
+<body>
+<table border="1">
+     <tr>
+         <td>Ref</td>
+         <td>Title</td>
+         <td>Publication_Date</td>
+         <td>Published</td>
+         <td>Category</td>
+         <td>Author</td>
+         <td>Actions</td>
+     </tr>
+      {% for Book in allBooks %}
+        <tr>
+         <td> {{Book.Ref}} </td>
+         <td> {{Book.Title}} </td>
+         <td> {{Book.publicationDate|date('Y-m-d')}} </td>
+         <td> {{Book.Published}} </td>
+         <td> {{Book.Category}} </td>
+         <td> {{Book.Authors}} </td>
+
+         <td>
+              <a href="{{ path('edit_book', {'ref': Book.ref}) }}">Edit</a>
+              <a href="{{ path('deleteB', {'ref': Book.ref}) }}"> Delete </a>
+              <a href="{{ path('showB', {'ref': Book.ref}) }}">Show</a>
+         </td>
+        </tr>
+      {% endfor %}
+</table>      
+
+
+<h4>Published Books ({{ publishedCount }})</h1>
+
+<h4>Unpublished Books ({{ unpublishedCount }})</h1>
+
+{% if publishedCount == 0 and unpublishedCount == 0 %}
+    <p>No Books found</p>
+{% endif %} 

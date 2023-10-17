@@ -4,7 +4,7 @@
 
 </head>
 <body>
-<table>
+<table border="1">
      <tr>
          <td>ID</td>
          <td>Username</td>
@@ -18,9 +18,9 @@
          <td> {{Author.Email}} </td>
 
          <td>
-           <a href=""> Show </a>
-           <a href=""> Delete </a>
-           <a href=""> Update </a>
+             <a href="{{ path('showA', {'id': Author.id}) }}"> Show </a>
+           <a href="{{ path('deleteAuthor', {'id': Author.id}) }}"> Delete </a>
+           <a href="{{ path('updateAuth', {'id': Author.id}) }}"> Update </a>
          </td>
         </tr>
       {% endfor %}

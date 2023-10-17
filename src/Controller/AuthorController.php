@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Form\AuthorType;
+use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Author;
 use App\Repository\AuthorRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class AuthorController extends AbstractController
@@ -68,22 +72,62 @@ class AuthorController extends AbstractController
         }
     }
 
-    #[Route('/AddStatique', name: 'Add_Statique')]
-public function addstatiqu(AuthorRepository $repository): Response
-{
-    $author1 = new Author();
-    $author1->setUsername("test");
-    $author1->setEmail("test@gmail.com");
+#[Route('/showA/{id}', name: 'showA')]
+public function showAuthor1($id,AuthorRepository $repo){
+   $author=$repo->find($id);
+   return $this->render('author/showA.html.twig',['author'=>$author]);
+}
 
-    $entityManager = $this->getDoctrine()->getManager();
-    $entityManager->persist($author1);
-    $entityManager->flush();
+#[Route('/deleteAuthor/{id}', name: 'deleteAuthor')]
+public function delete($id,AuthorRepository $repo,ManagerRegistry $manager){
+   $author=$repo->find($id);
+   $em=$manager->getManager();
+   $em->remove($author);
+   $em->flush();
+   return $this->redirectToRoute('showAll');
+}
 
-    $list = $repository->findAll();
+#[Route('/addstatic', name: 'addstatic')]
+public function addstatic(ManagerRegistry $manager){
+$author=new Author();
+$author->setUsername('foulen');
+$author->setEmail('foulen@gmail.com');
+$em=$manager->getManager();
+$em->persist($author);
+$em->flush();
+return $this->redirectToRoute('showAll');
+}
 
-    return $this->render('author/showAll.html.twig', [
-        'Authors' => $list
-    ]);
+#[Route('/addA', name: 'addA')]
+public function addA(Request $Request,ManagerRegistry $manager){
+    $author=new Author();
+    $form=$this->createForm(AuthorType::class,$author);
+    $form->add('add',SubmitType::class);
+    $form->handleRequest($Request);
+
+    if($form->isSubmitted()){
+        $em=$manager->getManager();
+        $em->persist($author);
+        $em->flush();
+        return $this->redirectToRoute('showAll');
+    }
+    return $this->render('author/addAuthor.html.twig',['form'=>$form->createview()]);
+}
+
+#[Route('/updateAuth/{id}', name: 'updateAuth')]
+public function updateAuth($id,AuthorRepository $repo,ManagerRegistry $manager,Request $Request){
+      $author=$repo->find($id);
+      $form=$this->createForm(AuthorType::class,$author);
+      $form->add('update',SubmitType::class);
+      $form->handleRequest($Request);
+
+      if($form->isSubmitted()){
+        $em=$manager->getManager();
+        $em->persist($author);
+        $em->flush();
+        return $this->redirectToRoute('showAll');
+    }
+      return $this->render('author/update.html.twig',['form'=>$form->createview()]);
 }
 
 }
