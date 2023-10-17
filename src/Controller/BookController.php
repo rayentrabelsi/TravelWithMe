@@ -43,7 +43,7 @@ class BookController extends AbstractController
             return $this->redirectToRoute('addB');
         }
     
-        return $this->render('author/addBook.html.twig', [
+        return $this->render('book/addBook.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -66,7 +66,7 @@ public function listBooks(BookRepository $repo): Response
 
     $allBooks = $repo->findAll(); 
 
-    return $this->render('author/list_books.html.twig', [
+    return $this->render('book/list_books.html.twig', [
         'publishedBooks' => $publishedBooks,
         'unpublishedBooks' => $unpublishedBooks,
         'publishedCount' => $publishedCount,
@@ -89,7 +89,7 @@ public function listBooks(BookRepository $repo): Response
             return $this->redirectToRoute('list_books');
         }
 
-        return $this->render('author/updateB.html.twig', [
+        return $this->render('book/updateB.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -106,7 +106,7 @@ public function delete($ref,BookRepository $repo,ManagerRegistry $manager){
 #[Route('/showB/{ref}', name: 'showB')]
 public function showBook($ref,BookRepository $repo){
    $book=$repo->find($ref);
-   return $this->render('author/showB.html.twig',['book'=>$book]);
+   return $this->render('book/showB.html.twig',['book'=>$book]);
 }
 
 }
