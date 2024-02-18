@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}admin back{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* CSS for table styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        /* CSS for button links */
+        .btn-link {
+            text-decoration: none;
+            padding: 5px 10px;
+            margin-right: 5px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 4px;
+        }
+        .btn-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Welcome Admin! Here is the list of users</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Password</th>
+                <th>Lastname</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.lastname }}</td>
+                <td>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn-link">Show</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn-link">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">No records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_user_new') }}" class="btn-link">Create New</a>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        // JavaScript code can be added here if needed
+    </script>
+{% endblock %}
