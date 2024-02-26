@@ -78,4 +78,29 @@ class UserController extends AbstractController
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+
+
+    
+    #[Route('grade/{id}', name: 'grade_admin')]
+public function grade_admin(User $user, EntityManagerInterface $em)
+{
+    $roles = $user->getRoles();
+
+    if (in_array('ROLE_ADMIN', $roles)) {
+        // User already has ROLE_ADMIN, so remove it
+        $roles = array_diff($roles, ['ROLE_ADMIN']);
+    } else {
+        // User doesn't have ROLE_ADMIN, so add it
+        $roles[] = 'ROLE_ADMIN';
+    }
+
+    // Set the updated roles and save to database
+    $user->setRoles($roles);
+    $em->flush();
+
+    $this->addFlash('success', "La modification a bien été pris en compte");
+    return $this->redirectToRoute('app_user_index');
+}
+
 }
