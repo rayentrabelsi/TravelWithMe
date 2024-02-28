@@ -1,3 +1,11 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+search_users:
+    path: /users/search
+    controller: App\Controller\UserController::searchUsers
+
+
+# user_sort:
+#     path: /user/sort/{criteria}
+#     controller: App\Controller\UserController::sort

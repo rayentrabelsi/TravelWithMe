@@ -34,15 +34,33 @@
         .btn-link:hover {
             background-color: #0056b3;
         }
+
+        .search-form {
+    display: inline-block;
+    background-color: #f2f2f2;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
     </style>
 {% endblock %}
 
 {% block body %}
     <h1>Welcome Admin! Here is the list of users</h1>
 
+    <div style="text-align: center;">
+    <form action="{{ path('search_users') }}" method="get" class="search-form">
+    <input type="text" name="search_query" placeholder="Search...">
+    <button type="submit" class="btn-link">Search</button>
+    </form>
+    </div>
+
+    {# <a href="{{ path('order_By_Nom') }}">Sort Users by LastName</a> #}
+
     <table class="table">
         <thead>
             <tr>
+                {# <th>{{knp_pagination_sortable(user, 'id' , 'user.id' )}}</th> #}
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
@@ -77,6 +95,8 @@
     </table>
 
     <a href="{{ path('app_user_new') }}" class="btn-link">Create New</a>
+
+
 {% endblock %}
 
 {% block javascripts %}

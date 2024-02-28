@@ -11,6 +11,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
+
 #[Route('/user')]
 class UserController extends AbstractController
 {
@@ -83,8 +85,8 @@ class UserController extends AbstractController
 
     
     #[Route('grade/{id}', name: 'grade_admin')]
-public function grade_admin(User $user, EntityManagerInterface $em)
-{
+    public function grade_admin(User $user, EntityManagerInterface $em)
+    {
     $roles = $user->getRoles();
 
     if (in_array('ROLE_ADMIN', $roles)) {
@@ -101,10 +103,10 @@ public function grade_admin(User $user, EntityManagerInterface $em)
 
     $this->addFlash('success', "La modification a bien été pris en compte");
     return $this->redirectToRoute('app_user_index');
-}
+    }
 
 
-#[Route('/block/{id}', name: 'block_user')]
+    #[Route('/block/{id}', name: 'block_user')]
     public function block(User $user, EntityManagerInterface $entityManager): Response
     {
         // Check if the user is an admin
@@ -151,5 +153,41 @@ public function grade_admin(User $user, EntityManagerInterface $em)
         // Redirect back to the user list or any other route
         return $this->redirectToRoute('app_user_index');
     }
+
+
+
+    #[Route('/search_users', name: 'search_users')]
+    public function searchUsers(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $searchQuery = $request->query->get('search_query');
+
+        $users = $entityManager->getRepository(User::class)
+            ->createQueryBuilder('u')
+            ->where('u.lastname LIKE :query')
+            ->orWhere('u.email LIKE :query')
+            ->orWhere('u.roles LIKE :query')
+            ->setParameter('query', '%' . $searchQuery . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('user/index.html.twig', [
+            'users' => $users,
+        ]);
+    }
+
+
+    // #[Route('/order_By_Nom', name: 'order_By_Nom')]
+    // public function order_By_Nom(Request $request,UserRepository $userRepository): Response
+    // {
+    //     //list of students order By Dest
+    //     $userByNom = $userRepository->order_By_Nom();
+
+    //     return $this->render('user/index.html.twig', [
+    //         'users' => $userByNom,
+    //     ]);
+    
+
+    // }
+
 
 }
