@@ -103,4 +103,53 @@ public function grade_admin(User $user, EntityManagerInterface $em)
     return $this->redirectToRoute('app_user_index');
 }
 
+
+#[Route('/block/{id}', name: 'block_user')]
+    public function block(User $user, EntityManagerInterface $entityManager): Response
+    {
+        // Check if the user is an admin
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            throw $this->createAccessDeniedException('Only administrators can toggle user status.');
+        }
+
+        // Toggle user status between blocked and unblocked
+        if (in_array('ROLE_BLOCKED', $user->getRoles(), true)) {
+            // Unblock the user
+            $user->setRoles(['ROLE_USER']);
+            $message = 'User unblocked successfully.';
+        } else {
+            // Block the user
+
+            $roles = $user->getRoles();
+
+            if (in_array('ROLE_USER', $roles)) {
+                // User already has ROLE_USER, so remove it
+                $roles = array_diff($roles, ['ROLE_USER']);
+            }
+
+            if (in_array('ROLE_ADMIN', $roles)) {
+                // User already has ROLE_ADMIN, so remove it
+                $roles = array_diff($roles, ['ROLE_ADMIN']);
+            }
+
+            
+            $roles[] = 'ROLE_BLOCKED';
+            $user->setRoles($roles);
+
+            //$user->setRoles(['ROLE_BLOCKED']);
+            $message = 'User blocked successfully.';
+
+            
+        }
+
+        // Save changes to the database
+        $entityManager->flush();
+
+        // Flash a success message
+        $this->addFlash('success', $message);
+
+        // Redirect back to the user list or any other route
+        return $this->redirectToRoute('app_user_index');
+    }
+
 }

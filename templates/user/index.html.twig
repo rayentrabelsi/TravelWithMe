@@ -63,7 +63,9 @@
                     <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn-link">Show</a>
                     <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn-link">Edit</a>
 
-                    <a href="{{ path('grade_admin', {'id': user.id}) }}" class="btn-link">Make/Remove Admin</a>
+                    <a href="{{ path('grade_admin', {'id': user.id}) }}" class="btn-link">Mk/Rm Admin</a>
+
+                    <a href="{{ path('block_user', {'id': user.id}) }}" class="btn-link">Un/Block</a>
                 </td>
             </tr>
         {% else %}
