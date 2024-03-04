@@ -51,11 +51,7 @@ class MoyTransportType extends AbstractType
                 ]),
             ],
         ])
-        ->add('disponibility', ChoiceType::class, [
-            'choices' => [
-                'Disponible' => true,
-                'Non disponible' => false,
-            ],
+        ->add('disponibility', TextType::class, [
             'constraints' => [
                 new NotNull(['message' => 'La disponibilité du transport est requise.']),
             ],

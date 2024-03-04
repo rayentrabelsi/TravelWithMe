@@ -4,11 +4,22 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-         photo_dir: "public/assets/images/explore"
+    photo_dir: "public/assets/images/explore"
+    AI21_API_KEY: 'dPxxEUfJ5w5LNpOkS8kj4SCYeAuaRSwv'
+    openweathermap_api_key: '65025a085f2eb3790711bcc62025f0b4'
 
 services:
-    
-        # Configuration du service
+
+    App\Service\AI21Service:
+        # Configure the value for the $apiKey argument
+        arguments:
+            $parameterBag: '@parameter_bag'
+
+    App\Service\OpenWeatherMapService:
+        arguments:
+            $apiKey: '%openweathermap_api_key%'
+
+    # Configuration du service
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.

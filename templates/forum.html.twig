@@ -1,6 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <style>
+        /* Styles de base pour le bouton */
+        .btn.primary {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: normal;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            background-color: #007bff; /* Couleur de fond */
+            color: #ffffff; /* Couleur du texte */
+        }
+
+        /* Styles au survol */
+        .btn.primary:hover {
+            background-color: #0056b3; /* Nouvelle couleur de fond au survol */
+        }
+
+        /* Styles au clic */
+        .btn.primary:active {
+            background-color: #003366; /* Nouvelle couleur de fond au clic */
+        }
+    </style>
+    <style>
+        .comment-divider {
+            border-top: 1px solid #ccc; /* Définir la couleur et l'épaisseur de la ligne */
+            margin: 10px 0; /* Ajouter une marge au-dessus et en dessous de la ligne */
+        }
+
+        .like-dislike-info {
+            color: #888; /* Couleur grise pour les informations sur les likes et dislikes */
+            font-size: 14px; /* Taille de la police */
+            margin-top: 5px; /* Marge au-dessus des informations */
+        }
+    </style>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="icon"
@@ -20,35 +59,35 @@
     <title>Directory Landing Page</title>
 
     <!-- For favicon png -->
-    <link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png"/>
+    <link rel="shortcut icon" type="image/icon" href="{{asset('assets/logo/favicon.png')}}"/>
 
     <!--font-awesome.min.css-->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
 
     <!--linear icon css-->
-    <link rel="stylesheet" href="assets/css/linearicons.css">
+    <link rel="stylesheet" href="{{asset('assets/css/linearicons.css')}}">
 
     <!--animate.css-->
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
 
     <!--flaticon.css-->
-    <link rel="stylesheet" href="assets/css/flaticon.css">
+    <link rel="stylesheet" href="{{asset('assets/css/flaticon.css')}}">
 
     <!--slick.css-->
-    <link rel="stylesheet" href="assets/css/slick.css">
-    <link rel="stylesheet" href="assets/css/slick-theme.css">
+    <link rel="stylesheet" href="{{asset('assets/css/slick.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/slick-theme.css')}}">
 
     <!--bootstrap.min.css-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
 
     <!-- bootsnav -->
-    <link rel="stylesheet" href="assets/css/bootsnav.css" >
+    <link rel="stylesheet" href="{{asset('assets/css/bootsnav.css')}}" >
 
     <!--style.css-->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
 
     <!--responsive.css-->
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -60,84 +99,35 @@
     {% endblock %}
 
     {% block javascripts %}
-         <script src="assets/js/jquery.js"></script>
+         <script src="{{asset('assets/js/jquery.js')}}"></script>
 
                 <!--modernizr.min.js-->
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 
                 <!--bootstrap.min.js-->
-                <script src="assets/js/bootstrap.min.js"></script>
+                <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
 
                 <!-- bootsnav js -->
-                <script src="assets/js/bootsnav.js"></script>
+                <script src="{{asset('assets/js/bootsnav.js')}}"></script>
 
                 <!--feather.min.js-->
-                <script  src="assets/js/feather.min.js"></script>
+                <script  src="{{asset('assets/js/feather.min.js')}}"></script>
 
                 <!-- counter js -->
-                <script src="assets/js/jquery.counterup.min.js"></script>
-                <script src="assets/js/waypoints.min.js"></script>
+                <script src="{{asset('assets/js/jquery.counterup.min.js')}}"></script>
+                <script src="{{asset('assets/js/waypoints.min.js')}}"></script>
 
                 <!--slick.min.js-->
-                <script src="assets/js/slick.min.js"></script>
+                <script src="{{asset('assets/js/slick.min.js')}}"></script>
 
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
 
                 <!--Custom JS-->
-                <script src="assets/js/custom.js"></script>
+                <script src="{{asset('assets/js/custom.js')}}"></script>
     {% endblock %}
 </head>
 <body>
 {% block body %}
-      <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-<![endif]-->
-
-<!--header-top start -->
-<header id="header-top" class="header-top">
-    <ul>
-        <li>
-            <div class="header-top-left">
-                <ul>
-                    <li class="select-opt">
-                        <select name="language" id="language">
-                            <option value="default">EN</option>
-                            <option value="Bangla">BN</option>
-                            <option value="Arabic">AB</option>
-                        </select>
-                    </li>
-                    <li class="select-opt">
-                        <select name="currency" id="currency">
-                            <option value="usd">USD</option>
-                            <option value="euro">Euro</option>
-                            <option value="bdt">BDT</option>
-                        </select>
-                    </li>
-                    <li class="select-opt">
-                        <a href="#"><span class="lnr lnr-magnifier"></span></a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="head-responsive-right pull-right">
-            <div class="header-top-right">
-                <ul>
-                    <li class="header-top-contact">
-                        +1 222 777 6565
-                    </li>
-                    <li class="header-top-contact">
-                        <a href="#">sign in</a>
-                    </li>
-                    <li class="header-top-contact">
-                        <a href="#">register</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-    </ul>
-
-</header><!--/.header-top-->
-<!--header-top end -->
 
 <!-- top-area Start -->
 <section class="top-area">
@@ -152,7 +142,7 @@
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                         <i class="fa fa-bars"></i>
                     </button>
-                    <a class="navbar-brand" href="index.html">Travel<span>with me</span></a>
+                    <a class="navbar-brand" href="index.html">Travel<span>withMe</span></a>
 
                 </div><!--/.navbar-header-->
                 <!-- End Header Navigation -->
@@ -184,156 +174,244 @@
             </div><!--/.section-header-->
 
             <html lang="en">
-            
+
             <!--blog start -->
             <section id="blog" class="blog" >
                 <div class="container">
                     <div class="section-header">
+                        <img src="assets/images/blog/.jpg" alt="">
                         <h2>news and articles</h2>
                         <p>Always upto date with our latest News and Articles </p>
+                        <style>
+                            /* Styles spécifiques pour le titre h2 */
+                            .section-header h2 {
+                                font-family: Alice, sans-serif; /* Changer la police */
+                                color: blue; /* Changer la couleur */
+                                font-weight: bold; /* Ajouter le gras */
+                            }
+                            /* Style pour l'image */
+                            .section-header img {
+                                max-width: 10%; /* Pour s'assurer que l'image ne dépasse pas de la section */
+                                display: block; /* Pour éviter tout espace supplémentaire autour de l'image */
+                                margin: 0 auto 20px; /* Pour centrer l'image horizontalement et ajouter un peu d'espace en bas */
+                            }
+                        </style>
                     </div><!--/.section-header-->
 
-            </body>
 
                     <div class="blog-content">
                         <div class="row">
+                            {% for post in posts %}
                             <div class="col-md-4 col-sm-6">
                                 <div class="single-blog-item">
                                     <div class="single-blog-item-img">
-                                        <img src="assets/images/blog/b1.jpg" alt="blog image">
+                                        <img src="/assets/images/blog/{{ post.idPost }}.jpg" alt="blog image">
                                     </div>
                                     <div class="single-blog-item-txt">
-                                        <h2><a href="#">How to find your Desired Place more quickly</a></h2>
-                                        <h4>posted <span>by</span> <a href="#">admin</a> february 2024</h4>
-                                        <p>
-                                            Sign Up for Alerts: Stay updated on deals and promotions by signing up for alerts
-                                        </p>
-                                        <p>
-                                            Read Reviews and Ratings: Get insights from traveler reviews to make informed decisions faster.
-                                        </p>
-                                        <p>
-                                            Save Favorites: Save destinations or accommodations you like to easily compare them later.
-                                        </p>
+                                        <h2><a href="{{ path('app_comment_new', {'postId': post.idPost})  }}">{{ post.title }}</a></h2>
+                                        <h4>posted <span>by</span> <a href="#">{{ post.author }}</a> {{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</h4>
+
+                                        <!-- Loop through comments for this post -->
+                                        {% for comment in post.comments %}
+                                        <meta charset="UTF-8">
+                                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                            <title>Forum Comment</title>
+                                            <style>
+                                                .comment {
+                                                    border: 1px solid #ccc;
+                                                    border-radius: 5px;
+                                                    padding: 10px;
+                                                    margin-bottom: 20px;
+                                                }
+
+                                                .reply {
+                                                    border: 1px solid #ccc;
+                                                    border-radius: 5px;
+                                                    padding: 5px;
+                                                    margin-top: 5px; /* Add margin-top to separate replies */
+                                                }
+                                                .comment-header {
+                                                    display: flex;
+                                                    align-items: center;
+                                                }
+
+                                                .comment-header img {
+                                                    width: 50px;
+                                                    height: 50px;
+                                                    border-radius: 50%;
+                                                    margin-right: 10px;
+                                                }
+
+                                                .user-info h3 {
+                                                    margin: 0;
+                                                }
+
+                                                .comment-date {
+                                                    color: #777;
+                                                    font-size: 12px;
+                                                }
+
+                                                .comment-content p {
+                                                    margin: 0;
+                                                    font-size: 14px;
+                                                    line-height: 1.5;
+                                                }
+
+                                                .comment-actions {
+                                                    display: flex;
+                                                }
+
+                                                .comment-actions form {
+                                                    margin-right: 5px; /* Adjust margin between forms if needed */
+                                                }
+
+                                                .btn-reply,
+                                                .btn-like {
+                                                    padding: 5px 10px;
+                                                    background-color: #007bff;
+                                                    color: #fff;
+                                                    border: none;
+                                                    border-radius: 3px;
+                                                    cursor: pointer;
+                                                    margin-right: 10px;
+                                                }
+
+                                                .btn-reply:hover,
+                                                .btn-like:hover {
+                                                    background-color: #0056b3;
+                                                }
+                                            </style>
+
+                                        <div class="comment">
+                                            <div class="comment-header">
+                                                <img src="/assets/images/blog/pr.jpg" alt="eya boukhzar">
+                                                <div class="user-info">
+                                                    <h3>{{ comment.AuthorC}}</h3>
+                                                    <span class="comment-date">{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>{{ comment.content}}</p>
+                                            </div>
+
+                                            <hr class="comment-divider"> <!-- Ligne horizontale -->
+
+                                            <div class="like-dislike-info">
+                                                <span class="likes-count">{{ comment.reacts.likes}} likes</span>
+                                                <span class="dislikes-count">{{ comment.reacts.dislike}}   dislikes</span>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <form method="post" action="{{ path('comment_like', {'id': comment.idcomment}) }}">
+                                                    <button class="btn-reply"> <i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                                </form>
+                                                <form method="post" action="{{ path('comment_dislike', {'id': comment.idcomment}) }}">
+                                                    <button class="btn-reply"> <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                                                </form>
+                                                {# Bouton signaler #}
+                                                <form method="post" action="{{ path('comment_signaler', {'id': comment.idcomment}) }}">
+                                                    <button class="btn-reply"> Signaler </button>
+                                                </form>
+
+                                                <a href="{{ path('app_comment_reply', {'parentId': comment.idComment}) }}" data-reply data-id="{{ comment.idComment }}"> <button class="btn-reply"> Reply </button></a>
+                                        </div>
+                                            <div style="margin-bottom: 20px;"></div>
+                                            <!-- Loop through comments for this post -->
+                                            {% for reply in comment.comments %}
+                                                <meta charset="UTF-8">
+                                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                                <title>Forum Comment</title>
+                                                <div class="comment">
+                                                    <div class="comment-header">
+                                                        <img src="/assets/images/blog/pr.jpg" alt="eya boukhzar">
+                                                        <div class="user-info">
+                                                            <h3>{{ reply.AuthorC}}</h3>
+                                                            <span class="comment-date">{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p>{{ reply.content}}</p>
+                                                    </div>
+
+                                                    <hr class="comment-divider"> <!-- Ligne horizontale -->
+
+                                                    <div class="like-dislike-info">
+                                                        <span class="likes-count">{{ reply.reacts.likes}} likes</span>
+                                                        <span class="dislikes-count">{{ reply.reacts.dislike}}   dislikes</span>
+                                                    </div>
+                                                    <div class="comment-actions">
+                                                        <form method="post" action="{{ path('comment_like', {'id': reply.idcomment}) }}">
+                                                            <button class="btn-reply"> <i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                                        </form>
+                                                        <form method="post" action="{{ path('comment_dislike', {'id': reply.idcomment}) }}">
+                                                            <button class="btn-reply"> <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                                                        </form>
+                                                        {# Bouton signaler #}
+                                                        <form method="post" action="{{ path('comment_signaler', {'id': reply.idcomment}) }}">
+                                                            <button class="btn-reply"> Signaler </button>
+                                                        </form>
+                                                        <style>
+                                                            /* Styles de base pour le bouton */
+                                                            .btn.primary {
+                                                                display: inline-block;
+                                                                padding: 5px 10px;
+                                                                font-size: 14px;
+                                                                font-weight: normal;
+                                                                text-align: center;
+                                                                text-decoration: none;
+                                                                border: none;
+                                                                border-radius: 5px;
+                                                                cursor: pointer;
+                                                                margin-top: 20px;
+                                                                background-color: #007bff; /* Couleur de fond */
+                                                                color: #ffffff; /* Couleur du texte */
+                                                            }
+
+                                                            /* Styles au survol */
+                                                            .btn.primary:hover {
+                                                                background-color: #0056b3; /* Nouvelle couleur de fond au survol */
+                                                            }
+
+                                                            /* Styles au clic */
+                                                            .btn.primary:active {
+                                                                background-color: #003366; /* Nouvelle couleur de fond au clic */
+                                                            }
+                                                        </style>
+
+                                                        <a href="comment/reply" data-reply data-id="{{ reply.idComment }}"> <button class="btn-reply"> Reply </button></a>
+
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endfor %}
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6">
-                                <div class="single-blog-item">
-                                    <div class="single-blog-item-img">
-                                        <img src="assets/images/blog/b2.jpg" alt="blog image">
-                                    </div>
-                                    <div class="single-blog-item-txt">
-                                        <h2><a href="#">update</a></h2>
-                                        <h4>posted <span>by</span> <a href="#">admin</a> february 2024</h4>
-                                        <p>
-                                            Dear Travelers,
-
-                                            We have an important update regarding changes to flight schedules.
-
-                                            Effective [Tomorrow's Date, e.g., February 9th, 2024], several flights operated by [travel with mr  ] have been rescheduled.
-                                            Please review your itinerary for any adjustments to departure times or flight numbers
-                                            Check your updated itinerary.
-                                            Contact us for confirmation
-
-                                            Warm regards,
-                                        </p>
-                                    </div>
+                            {% else %}
+                                <div class="col-md-12">
+                                    <p>No posts found.</p>
                                 </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6">
-                                <div class="single-blog-item">
-                                    <div class="single-blog-item-img">
-                                        <img src="assets/images/blog/b3.jpg" alt="blog image">
-                                    </div>
-                                    <div class="single-blog-item-txt">
-                                        <h2><a href="#">Travel Tips and Hacks</a></h2>
-                                        <h4>posted <span>by</span> <a href="#">admin</a> january 2024</h4>
-                                        <p>
-                                            Traveling soon? Remember to pack light, stay flexible, and prioritize your safety,never forget to stay connected with loved ones, have fun and enjoy the journey!
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+
+                            {% endfor %}
                         </div>
                     </div>
                 </div><!--/.container-->
-                <head>
-                    <meta charset="UTF-8">
-                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                    <title>Home</title>
-                    <link rel="stylesheet" href="styles.css">
-                    <div class="row">
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-blog-item">
-                                <div class="single-blog-item-img">
-                                    <img src="assets/images/blog/b1.jpg" alt="blog image">
-                                </div>
-                                <div class="single-blog-item-txt">
-                                    <h2><a href="#">How to find your Desired Place more quickly</a></h2>
-                                    <h4>posted <span>by</span> <a href="#">admin</a> february 2024</h4>
-                                    <p>
-                                        Sign Up for Alerts: Stay updated on deals and promotions by signing up for alerts
-                                    </p>
-                                    <p>
-                                        Read Reviews and Ratings: Get insights from traveler reviews to make informed decisions faster.
-                                    </p>
-                                    <p>
-                                        Save Favorites: Save destinations or accommodations you like to easily compare them later.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-blog-item">
-                                <div class="single-blog-item-img">
-                                    <img src="assets/images/blog/th.jpg" alt="blog image">
-                                </div>
-                                <div class="single-blog-item-txt">
-                                    <h2><a href="#"></a> Exciting News: Salary Promotion!</h2>
-                                    <h4>posted <span>by</span> <a href="#">admin</a>  november 2023</h4>
-                                    <p>
 
-                                        Hello Team,
-
-                                        I'm thrilled to announce that our travel agency is implementing a salary promotion effective immediately. Each member of our team will receive a well-deserved increase in their salary. This promotion is our way of recognizing and appreciating your hard work and dedication to our agency's success.
-
-                                        Congratulations to all on this fantastic news!
-
-                                        Warm regards
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-6">
-                            <div class="single-blog-item">
-                                <div class="single-blog-item-img">
-                                    <img src="assets/images/blog/photo.jpg" alt="blog image">
-                                </div>
-                                <div class="single-blog-item-txt">
-                                    <h2><a href="#"> Share Your Travel Stories with Us!</a></h2>
-                                    <h4>posted <span>by</span> <a href="#">admin</a> january 2024</h4>
-                                    <p>
+                {# templates/base.html.twig #}
 
 
-
-                                        Hello travelers!
-
-                                        Have an unforgettable travel experience you want to share? We'd love to hear it! Share your stories, tips, and photos with us on social media using #[YourAgencyName], or submit a guest blog post. Let's inspire each other to explore the world!
-
-                                        Happy travels,
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                </head>
+                <div style="text-align: center;">
+                    <form action="{{ path('search_post') }}" method="get" class="search-form">
+                        <input type="text" name="search_query" placeholder="Search...">
+                        <button type="submit" class="btn-link">Search</button>
+                    </form>
+                </div>
 
 
             </section><!--/.blog-->
             <!--blog end -->
 
-        </div>
                 <!--footer start-->
                 <footer id="footer"  class="footer">
                     <div class="container">
@@ -341,7 +419,7 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="navbar-header">
-                                        <a class="navbar-brand" href="index.html">Travel<span>with me</span></a>
+                                        <a class="navbar-brand" href="index.html">Travel<span>withMe</span></a>
                                     </div><!--/.navbar-header-->
                                 </div>
                                 <div class="col-sm-9">
@@ -387,5 +465,8 @@
                 </footer><!--/.footer-->
                 <!--footer end-->
 {% endblock %}
-</body>
+
+    </section>
+
+</section></body>
 </html>
