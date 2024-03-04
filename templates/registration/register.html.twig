@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* CSS for container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* CSS for form fields */
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        /* CSS for register button */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            text-align: center;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* CSS for logo span */
+        .logo-span {
+            display: block;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo-span img {
+            width: 40px;
+            height: auto;
+            border-radius: 50%;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="logo-span">
+            <span><img src="../assets/img/avatars/logo_travel1.png" alt class="w-px-40 h-auto rounded-circle" /></span>
+        </div>
+        
+        <h1>Register</h1>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(registrationForm.plainPassword, {
+                label: 'Password',
+                'attr': {'class': 'form-control'}
+            }) }}
+            {{ form_row(registrationForm.lastname, {'attr': {'class': 'form-control'}}) }}
+            {{ form_row(registrationForm.agreeTerms) }}
+
+            {{ form_row(registrationForm.captcha) }}
+            {{ form_errors(registrationForm.captcha) }}
+
+            <button type="submit" class="btn">Register</button>
+        {{ form_end(registrationForm) }}
+    </div>
+{% endblock %}

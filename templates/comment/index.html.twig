@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Styles de base pour le bouton */
+        .btn.primary {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: normal;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            background-color: #007bff; /* Couleur de fond */
+            color: #ffffff; /* Couleur du texte */
+        }
+
+        /* Styles au survol */
+        .btn.primary:hover {
+            background-color: #0056b3; /* Nouvelle couleur de fond au survol */
+        }
+
+        /* Styles au clic */
+        .btn.primary:active {
+            background-color: #003366; /* Nouvelle couleur de fond au clic */
+        }
+    </style>
+    <style>
+        .comment-divider {
+            border-top: 1px solid #ccc; /* Définir la couleur et l'épaisseur de la ligne */
+            margin: 10px 0; /* Ajouter une marge au-dessus et en dessous de la ligne */
+        }
+
+        .like-dislike-info {
+            color: #888; /* Couleur grise pour les informations sur les likes et dislikes */
+            font-size: 14px; /* Taille de la police */
+            margin-top: 5px; /* Marge au-dessus des informations */
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon"
+          href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {# Run composer require symfony/webpack-encore-bundle to start using Symfony UX #}
+    {% block stylesheets %}
+       <!-- meta data -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!--font-family-->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <!-- title of site -->
+    <title>Directory Landing Page</title>
+
+    <!-- For favicon png -->
+    <link rel="shortcut icon" type="image/icon" href="{{asset('assets/logo/favicon.png')}}"/>
+
+    <!--font-awesome.min.css-->
+    <link rel="stylesheet" href="{{asset('assets/css/font-awesome.min.css')}}">
+
+    <!--linear icon css-->
+    <link rel="stylesheet" href="{{asset('assets/css/linearicons.css')}}">
+
+    <!--animate.css-->
+    <link rel="stylesheet" href="{{asset('assets/css/animate.css')}}">
+
+    <!--flaticon.css-->
+    <link rel="stylesheet" href="{{asset('assets/css/flaticon.css')}}">
+
+    <!--slick.css-->
+    <link rel="stylesheet" href="{{asset('assets/css/slick.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/css/slick-theme.css')}}">
+
+    <!--bootstrap.min.css-->
+    <link rel="stylesheet" href="{{asset('assets/css/bootstrap.min.css')}}">
+
+    <!-- bootsnav -->
+    <link rel="stylesheet" href="{{asset('assets/css/bootsnav.css')}}" >
+
+    <!--style.css-->
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
+    <!--responsive.css-->
+    <link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% endblock %}
+
+    {% block javascripts %}
+         <script src="{{asset('assets/js/jquery.js')}}"></script>
+
+                <!--modernizr.min.js-->
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+                <!--bootstrap.min.js-->
+                <script src="{{asset('assets/js/bootstrap.min.js')}}"></script>
+
+                <!-- bootsnav js -->
+                <script src="{{asset('assets/js/bootsnav.js')}}"></script>
+
+                <!--feather.min.js-->
+                <script  src="{{asset('assets/js/feather.min.js')}}"></script>
+
+                <!-- counter js -->
+                <script src="{{asset('assets/js/jquery.counterup.min.js')}}"></script>
+                <script src="{{asset('assets/js/waypoints.min.js')}}"></script>
+
+                <!--slick.min.js-->
+                <script src="{{asset('assets/js/slick.min.js')}}"></script>
+
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+
+                <!--Custom JS-->
+                <script src="{{asset('assets/js/custom.js')}}"></script>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+
+<!-- top-area Start -->
+<section class="top-area">
+    <div class="header-area">
+        <!-- Start Navigation -->
+        <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+            <div class="container">
+
+                <!-- Start Header Navigation -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand" href="index.html">Travel<span>withMe</span></a>
+
+                </div><!--/.navbar-header-->
+                <!-- End Header Navigation -->
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+                    <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+                        <li class=" scroll active"><a href="#home">home</a></li>
+                        <li class="scroll"><a href="#works">how it works</a></li>
+                        <li class="scroll"><a href="#explore">explore</a></li>
+                        <li class="scroll"><a href="#reviews">review</a></li>
+                        <li class="scroll"><a href="#blog">forum</a></li>
+                        <li class="scroll"><a href="#contact">contact</a></li>
+                        <li class="scroll"><a href="user/html_user/pages-account-settings-account.html">Account</a></li>
+                    </ul><!--/.nav -->
+                </div><!-- /.navbar-collapse -->
+            </div><!--/.container-->
+        </nav><!--/nav-->
+        <!-- End Navigation -->
+    </div><!--/.header-area-->
+    <div class="clearfix"></div>
+
+
+
+    <!--explore start -->
+    <section id="explore" class="explore">
+        <div class="container">
+            <div class="section-header">
+            </div><!--/.section-header-->
+
+            <html lang="en">
+
+            <!--blog start -->
+            <section id="blog" class="blog" >
+                <div class="container">
+                    <div class="section-header">
+                        <img src="assets/images/blog/.jpg" alt="">
+                        <h2>news and articles</h2>
+                        <p>Always upto date with our latest News and Articles </p>
+                        <style>
+                            /* Styles spécifiques pour le titre h2 */
+                            .section-header h2 {
+                                font-family: Alice, sans-serif; /* Changer la police */
+                                color: blue; /* Changer la couleur */
+                                font-weight: bold; /* Ajouter le gras */
+                            }
+                            /* Style pour l'image */
+                            .section-header img {
+                                max-width: 10%; /* Pour s'assurer que l'image ne dépasse pas de la section */
+                                display: block; /* Pour éviter tout espace supplémentaire autour de l'image */
+                                margin: 0 auto 20px; /* Pour centrer l'image horizontalement et ajouter un peu d'espace en bas */
+                            }
+                        </style>
+                    </div><!--/.section-header-->
+
+
+                    <div class="blog-content">
+                        <div class="row">
+                            {% for post in posts %}
+                            <div class="col-md-4 col-sm-6">
+                                <div class="single-blog-item">
+                                    <div class="single-blog-item-img">
+                                        <img src="/assets/images/blog/{{ post.idPost }}.jpg" alt="blog image">
+                                    </div>
+                                    <div class="single-blog-item-txt">
+                                        <h2><a href="{{ path('app_comment_new', {'postId': post.idPost})  }}">{{ post.title }}</a></h2>
+                                        <h4>posted <span>by</span> <a href="#">{{ post.author }}</a> {{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</h4>
+
+                                        <!-- Loop through comments for this post -->
+                                        {% for comment in post.comments %}
+                                        <meta charset="UTF-8">
+                                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                            <title>Forum Comment</title>
+                                            <style>
+                                                .comment {
+                                                    border: 1px solid #ccc;
+                                                    border-radius: 5px;
+                                                    padding: 10px;
+                                                    margin-bottom: 20px;
+                                                }
+
+                                                .reply {
+                                                    border: 1px solid #ccc;
+                                                    border-radius: 5px;
+                                                    padding: 5px;
+                                                    margin-top: 5px; /* Add margin-top to separate replies */
+                                                }
+                                                .comment-header {
+                                                    display: flex;
+                                                    align-items: center;
+                                                }
+
+                                                .comment-header img {
+                                                    width: 50px;
+                                                    height: 50px;
+                                                    border-radius: 50%;
+                                                    margin-right: 10px;
+                                                }
+
+                                                .user-info h3 {
+                                                    margin: 0;
+                                                }
+
+                                                .comment-date {
+                                                    color: #777;
+                                                    font-size: 12px;
+                                                }
+
+                                                .comment-content p {
+                                                    margin: 0;
+                                                    font-size: 14px;
+                                                    line-height: 1.5;
+                                                }
+
+                                                .comment-actions {
+                                                    display: flex;
+                                                }
+
+                                                .comment-actions form {
+                                                    margin-right: 5px; /* Adjust margin between forms if needed */
+                                                }
+
+                                                .btn-reply,
+                                                .btn-like {
+                                                    padding: 5px 10px;
+                                                    background-color: #007bff;
+                                                    color: #fff;
+                                                    border: none;
+                                                    border-radius: 3px;
+                                                    cursor: pointer;
+                                                    margin-right: 10px;
+                                                }
+
+                                                .btn-reply:hover,
+                                                .btn-like:hover {
+                                                    background-color: #0056b3;
+                                                }
+                                            </style>
+
+                                        <div class="comment">
+                                            <div class="comment-header">
+                                                <img src="/assets/images/blog/pr.jpg" alt="eya boukhzar">
+                                                <div class="user-info">
+                                                    <h3>{{ comment.AuthorC}}</h3>
+                                                    <span class="comment-date">{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="comment-content">
+                                                <p>{{ comment.content}}</p>
+                                            </div>
+
+                                            <hr class="comment-divider"> <!-- Ligne horizontale -->
+
+                                            <div class="like-dislike-info">
+                                                <span class="likes-count">{{ comment.reacts.likes}} likes</span>
+                                                <span class="dislikes-count">{{ comment.reacts.dislike}}   dislikes</span>
+                                            </div>
+                                            <div class="comment-actions">
+                                                <form method="post" action="{{ path('comment_like', {'id': comment.idcomment}) }}">
+                                                    <button class="btn-reply"> <i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                                </form>
+                                                <form method="post" action="{{ path('comment_dislike', {'id': comment.idcomment}) }}">
+                                                    <button class="btn-reply"> <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                                                </form>
+                                                {# Bouton signaler #}
+                                                <form method="post" action="{{ path('comment_signaler', {'id': comment.idcomment}) }}">
+                                                    <button class="btn-reply"> Signaler </button>
+                                                </form>
+
+                                                <a href="{{ path('app_comment_reply', {'parentId': comment.idComment}) }}" data-reply data-id="{{ comment.idComment }}"> <button class="btn-reply"> Reply </button></a>
+                                        </div>
+                                            <div style="margin-bottom: 20px;"></div>
+                                            <!-- Loop through comments for this post -->
+                                            {% for reply in comment.comments %}
+                                                <meta charset="UTF-8">
+                                                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                                                <title>Forum Comment</title>
+                                                <div class="comment">
+                                                    <div class="comment-header">
+                                                        <img src="/assets/images/blog/pr.jpg" alt="eya boukhzar">
+                                                        <div class="user-info">
+                                                            <h3>{{ reply.AuthorC}}</h3>
+                                                            <span class="comment-date">{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="comment-content">
+                                                        <p>{{ reply.content}}</p>
+                                                    </div>
+
+                                                    <hr class="comment-divider"> <!-- Ligne horizontale -->
+
+                                                    <div class="like-dislike-info">
+                                                        <span class="likes-count">{{ reply.reacts.likes}} likes</span>
+                                                        <span class="dislikes-count">{{ reply.reacts.dislike}}   dislikes</span>
+                                                    </div>
+                                                    <div class="comment-actions">
+                                                        <form method="post" action="{{ path('comment_like', {'id': reply.idcomment}) }}">
+                                                            <button class="btn-reply"> <i class="fa fa-thumbs-up" aria-hidden="true"></i></button>
+                                                        </form>
+                                                        <form method="post" action="{{ path('comment_dislike', {'id': reply.idcomment}) }}">
+                                                            <button class="btn-reply"> <i class="fa fa-thumbs-down" aria-hidden="true"></i></button>
+                                                        </form>
+                                                        {# Bouton signaler #}
+                                                        <form method="post" action="{{ path('comment_signaler', {'id': reply.idcomment}) }}">
+                                                            <button class="btn-reply"> Signaler </button>
+                                                        </form>
+                                                        <style>
+                                                            /* Styles de base pour le bouton */
+                                                            .btn.primary {
+                                                                display: inline-block;
+                                                                padding: 5px 10px;
+                                                                font-size: 14px;
+                                                                font-weight: normal;
+                                                                text-align: center;
+                                                                text-decoration: none;
+                                                                border: none;
+                                                                border-radius: 5px;
+                                                                cursor: pointer;
+                                                                margin-top: 20px;
+                                                                background-color: #007bff; /* Couleur de fond */
+                                                                color: #ffffff; /* Couleur du texte */
+                                                            }
+
+                                                            /* Styles au survol */
+                                                            .btn.primary:hover {
+                                                                background-color: #0056b3; /* Nouvelle couleur de fond au survol */
+                                                            }
+
+                                                            /* Styles au clic */
+                                                            .btn.primary:active {
+                                                                background-color: #003366; /* Nouvelle couleur de fond au clic */
+                                                            }
+                                                        </style>
+
+                                                        <a href="comment/reply" data-reply data-id="{{ reply.idComment }}"> <button class="btn-reply"> Reply </button></a>
+
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                            {% else %}
+                                <div class="col-md-12">
+                                    <p>No posts found.</p>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div><!--/.container-->
+
+                {# templates/base.html.twig #}
+
+
+                <div style="text-align: center;">
+                    <form action="{{ path('search_post') }}" method="get" class="search-form">
+                        <input type="text" name="search_query" placeholder="Search...">
+                        <button type="submit" class="btn-link">Search</button>
+                    </form>
+                </div>
+
+
+            </section><!--/.blog-->
+            <!--blog end -->
+
+                <!--footer start-->
+                <footer id="footer"  class="footer">
+                    <div class="container">
+                        <div class="footer-menu">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="navbar-header">
+                                        <a class="navbar-brand" href="index.html">Travel<span>with me</span></a>
+                                    </div><!--/.navbar-header-->
+                                </div>
+                                <div class="col-sm-9">
+                                    <ul class="footer-menu-item">
+                                        <li class="scroll"><a href="#works">how it works</a></li>
+                                        <li class="scroll"><a href="#explore">explore</a></li>
+                                        <li class="scroll"><a href="#reviews">review</a></li>
+                                        <li class="scroll"><a href="#blog">blog</a></li>
+                                        <li class="scroll"><a href="#contact">contact</a></li>
+                                        <li class=" scroll"><a href="#contact">my account</a></li>
+                                    </ul><!--/.nav -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hm-footer-copyright">
+                            <div class="row">
+                                <div class="col-sm-5">
+                                    <p>
+                                        &copy;copyright. designed and developed by <a href="https://www.themesine.com/">themesine</a>
+                                    </p><!--/p-->
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="footer-social">
+                                        <span><i class="fa fa-phone"> +1  (222) 777 8888</i></span>
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-twitter"></i></a>
+                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!--/.hm-footer-copyright-->
+                    </div><!--/.container-->
+
+                    <div id="scroll-Top">
+                        <div class="return-to-top">
+                            <i class="fa fa-angle-up " id="scroll-top" data-toggle="tooltip" data-placement="top" title="" data-original-title="Back to Top" aria-hidden="true"></i>
+                        </div>
+
+                    </div><!--/.scroll-Top-->
+
+                </footer><!--/.footer-->
+                <!--footer end-->
+{% endblock %}
+
+    </section>
+
+</section></body>
+</html>

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        /* CSS for container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* CSS for labels */
+        th {
+            width: 30%;
+            font-weight: bold;
+        }
+
+        /* CSS for table data */
+        td {
+            width: 70%;
+            padding: 8px;
+        }
+
+        /* CSS for button links */
+        .btn-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            margin-right: 10px;
+        }
+        .btn-link:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>User</h1>
+
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ user.id }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <tr>
+                    <th>Roles</th>
+                    <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                </tr>
+                <tr>
+                    <th>Password</th>
+                    <td>{{ user.password }}</td>
+                </tr>
+                <tr>
+                    <th>Lastname</th>
+                    <td>{{ user.lastname }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_user_index') }}" class="btn-link">Back to List</a>
+
+        <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn-link">Edit</a>
+
+        {{ include('user/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <title>{% block title %}Home{% endblock %}</title>
     
+    
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.css" integrity="sha256-uq9PNlMzB+1h01Ij9cx7zeE2OR2pLAfRw3uUUOOPKdA=" crossorigin="anonymous">
+    
+
     {# Run composer require symfony/webpack-encore-bundle to start using Symfony UX #}
     {% block stylesheets %}
        <!-- meta data -->
@@ -59,6 +63,8 @@
 
     {% endblock %}
 
+	 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.3.0/main.min.js" integrity="sha256-DBxkGZLxKsLKhz054qUpBqtotG00r9AELGpSigJujLg=" crossorigin="anonymous"></script>
+
     {% block javascripts %}
         <script src="assets/js/jquery.js"></script>
         
@@ -91,53 +97,7 @@
 <body>
 {% block body %}
 
-       <!--[if lte IE 9]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-        <![endif]-->
-		
-		<!--header-top start -->
-		<header id="header-top" class="header-top">
-			<ul>
-				<li>
-					<div class="header-top-left">
-						<ul>
-							<li class="select-opt">
-								<select name="language" id="language">
-									<option value="default">EN</option>
-									<option value="Bangla">BN</option>
-									<option value="Arabic">AB</option>
-								</select>
-							</li>
-							<li class="select-opt">
-								<select name="currency" id="currency">
-									<option value="usd">USD</option>
-									<option value="euro">Euro</option>
-									<option value="bdt">BDT</option>
-								</select>
-							</li>
-							
-						</ul>
-					</div>
-				</li>
-				<li class="head-responsive-right pull-right">
-					<div class="header-top-right">
-						<ul>
-							<li class="header-top-contact">
-								+216 51 223 897
-							</li>
-							<li class="header-top-contact">
-								<a href="{{ path('app_sign_in') }}">sign in</a>
-							</li>
-							<li class="header-top-contact">
-								<a href="{{ path('app_register') }}">register</a>
-							</li>
-						</ul>
-					</div>
-				</li>
-			</ul>
-					
-		</header><!--/.header-top-->
-		<!--header-top end -->
+    
 
 		<!-- top-area Start -->
 		<section class="top-area">
@@ -240,7 +200,7 @@
 								<div class="single-list-topics-icon">
 									<i class="flaticon-building"></i>
 								</div>
-								<h2><a href="accomodation.html">accomodation</a></h2>
+								<h2><a href="{{ path('app_booking_new') }}">Booking</a></h2>
 								<p>185 listings</p>
 							</div>
 						</li>
@@ -270,64 +230,143 @@
 		</section><!--/.list-topics-->
 		<!--list-topics end-->
 
-		<!--works start -->
-		<section id="works" class="works">
-			<div class="container">
-				<div class="section-header">
-					<h2>how it works</h2>
-					<p>Learn More about how our website works</p>
-				</div><!--/.section-header-->
-				<div class="works-content">
-					<div class="row">
-						<div class="col-md-4 col-sm-6">
-							<div class="single-how-works">
-								<div class="single-how-works-icon">
-									<i class="flaticon-lightbulb-idea"></i>
-								</div>
-								<h2><a href="#">choose <span> what to</span> do</a></h2>
-								<p>
-									At our service, the choice is yours to make your travel experience truly yours. Whether you prefer the intimacy of accommodations, the luxury of hotels, or the camaraderie of group travel, we have options to suit every preference. Select your ideal way to explore the world, knowing that we're here to ensure your journey is unforgettable</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">
-									read more
-								</button>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-how-works">
-								<div class="single-how-works-icon">
-									<i class="flaticon-networking"></i>
-								</div>
-								<h2><a href="#">find <span> what you want</span></a></h2>
-								<p>
-
-
-								</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">
-									read more
-								</button>
-							</div>
-						</div>
-						<div class="col-md-4 col-sm-6">
-							<div class="single-how-works">
-								<div class="single-how-works-icon">
-									<i class="flaticon-location-on-road"></i>
-								</div>
-								<h2><a href="#">explore <span> amazing</span> place</a></h2>
-								<p>
-
-									With us, your travel dreams can become a reality as you explore the world to your heart's content. From iconic landmarks to hidden gems, we provide the means for you to visit any place you've ever dreamed of. Let us be your gateway to adventure, guiding you through the wonders of the globe with ease and expertise. Embark on a journey of discovery, knowing that with our services, the world is yours to explore.
-								</p>
-								<button class="welcome-hero-btn how-work-btn" onclick="window.location.href='#'">
-									read more
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!--/.container-->
 		
-		</section><!--/.works-->
-		<!--works end -->
+
+
+
+      <!-- Voyage Section -->
+<section id="voyage" class="works">
+    <div class="container">
+        <div class="section-header">
+            <h2>Voyage Section</h2>
+        </div>
+        <div class="container">
+            <a href="{{ path('app_voyage_front_index') }}" class="btn btn-primary btn-lg btn-block mt-5">Create Your Voyages</a>
+        </div>
+        <div class="works-content">
+            <!-- Get My Location Button -->
+            <button id="getLocationBtn">Get My Location</button>
+            <div id="voyagesContainer" class="row">
+                {% for voyage in voyages %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-location-on-road"></i>
+                        </div>
+                        <h2><a href="#">{{ voyage.accomodationLieu }}</a></h2>
+                        <p>Vehicule: {{ voyage.vehiculeType }}</p>
+                        <p>Evenement: {{ voyage.evenementNom }}</p>
+
+                        <!-- Buttons -->
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="{{ path('generate_pdf', {'voyageId': voyage.id}) }}" class="btn btn-primary btn-block">Download PDF</a>
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{{ path('app_groupe_front_new') }}" class="btn btn-danger btn-block">Create Groupe</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Weather Section -->
+<section id="weather" class="works">
+    <div class="container">
+        <div class="section-header">
+            <h2>Current Weather</h2>
+        </div>
+        <div class="works-content">
+            {% if weatherData is defined %}
+                <p>Temperature: {{ weatherData.main.temp }} °C</p>
+                <p>Conditions: {{ weatherData.weather[0].description }}</p>
+                <!-- Add more weather data as needed -->
+            {% else %}
+                <p>Weather data is not available at the moment.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+    document.getElementById('getLocationBtn').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        } else {
+            console.log('Geolocation is not supported by this browser.');
+        }
+    });
+
+    function successCallback(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        // Now you can send the latitude and longitude to your server
+        // Example using fetch API:
+        fetch('/update-location', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ latitude: latitude, longitude: longitude }),
+        })
+        .then(response => {
+            // Handle response from server
+            console.log('Location updated successfully.');
+        })
+        .catch(error => {
+            console.error('Error sending location data to server:', error);
+        });
+    }
+
+    function errorCallback(error) {
+        console.log('Error occurred while retrieving geolocation:', error);
+    }
+</script>
+
+
+
+
+<div class="container my-custom-container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <form id="chatForm" action="{{ path('chat') }}" method="POST" class="my-4">
+                <!-- Hidden input field to submit an empty message -->
+                <input type="hidden" name="input" value="">
+                <button type="submit" class="btn btn-primary">Go to Chat</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <p class="text-center font-weight-bold display-10">Use our chatbox to learn more</p>
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% if generated_text is defined %}
+        <div class="generated-text">
+            {{ generated_text }}
+        </div>
+    {% endif %}
+</div>
+
+        
+
+
+
+
 
 		<!--explore start -->
 		<section id="explore" class="explore">
