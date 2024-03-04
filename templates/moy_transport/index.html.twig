@@ -63,52 +63,6 @@
 </head>
 <body>
 {% block body %}
-       <!--[if lte IE 9]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
-<![endif]-->
-
-<!--header-top start -->
-<header id="header-top" class="header-top">
-    <ul>
-        <li>
-            <div class="header-top-left">
-                <ul>
-                    <li class="select-opt">
-                        <select name="language" id="language">
-                            <option value="default">EN</option>
-                            <option value="Bangla">BN</option>
-                            <option value="Arabic">AB</option>
-                        </select>
-                    </li>
-                    <li class="select-opt">
-                        <select name="currency" id="currency">
-                            <option value="usd">USD</option>
-                            <option value="euro">Euro</option>
-                            <option value="bdt">BDT</option>
-                        </select>
-                    </li>
-                </ul>
-            </div>
-        </li>
-        <li class="head-responsive-right pull-right">
-            <div class="header-top-right">
-                <ul>
-                    <li class="header-top-contact">
-                        +216 51 223 897
-                    </li>
-                    <li class="header-top-contact">
-                        <a href="#">sign in</a>
-                    </li>
-                    <li class="header-top-contact">
-                        <a href="#">register</a>
-                    </li>
-                </ul>
-            </div>
-        </li>
-    </ul>
-
-</header><!--/.header-top-->
-<!--header-top end -->
 
 <!-- top-area Start -->
 <section class="top-area">
@@ -147,7 +101,6 @@
     <div class="clearfix"></div>
 
 
-
 <!--explore start -->
 <section id="explore" class="explore">
     <div class="container">
@@ -157,9 +110,13 @@
         </div><!--/.section-header-->
         <div class="explore-content">
             <div class="row">
-
+             <div style="text-align: center;">
+                    <form action="{{ path('search_transport') }}" method="get" class="search-form">
+                        <input type="text" name="search_query" placeholder="Search...">
+                        <button type="submit" class="btn-link">Rechercher</button>
+                    </form>
+                </div><br><br>
                   {% for moy_transport in moy_transports %}
-
                 <div class=" col-md-4 col-sm-6">
                     <div class="single-explore-item">
                         <div class="single-explore-img">
@@ -183,7 +140,7 @@
                             </div>
                         </div>
                         <div class="single-explore-txt bg-theme-1">
-                            <h2><a href="{{ path('app_transport_reservation_new') }}">{{ moy_transport.transportModel }}</a></h2>
+                            <h2><a href="{{ path('app_calendar_new') }}">{{ moy_transport.transportModel }}</a></h2>
                             <p class="explore-rating-price">
                                 <span class="explore-rating">5.0</span>
                                 <a href="#"> 10 ratings</a>
@@ -211,8 +168,8 @@
                             </div>
                             <div class="explore-open-close-part">
                                 <div class="row">
-                                    <div class="col-sm-5">
-                                        <button class="close-btn open-btn" onclick="window.location.href='{{ path('app_transport_reservation_new') }}'">{{ moy_transport.disponibility }}</button>
+                                    <div class="col-sm-5">     
+                                     <button class="close-btn open-btn" onclick="window.location.href='{{ path('app_calendar_new') }}'">{{ moy_transport.disponibility }}</button>
                                     </div>
                                     <div class="col-sm-7">
                                         <div class="explore-map-icon">
@@ -223,6 +180,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -233,7 +191,7 @@
             </tr>
         {% endfor %}
 
-
+             
             </div>
         </div>
     </div><!--/.container-->

@@ -1,0 +1,182 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<!--hebergement start -->
+<section id="works" class="works">
+    <div class="container">
+        <div class="section-header">
+            <h2>Choose Your Hebergement</h2>
+        </div><!--/.section-header-->
+        <div class="works-content">
+            <div class="row">
+                {% for hebergement in hebergements %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-location-on-road"></i>
+                        </div>
+                        <h2><a href="#">{{ hebergement.lieu }}</a></h2>
+                        <input type="checkbox" name="hebergement[]" value="{{ hebergement.id }}">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div><!--/.container-->
+</section><!--/.works-->
+<!--hebergement end -->
+
+	<!--event start -->
+	<section id="works" class="works">
+		<div class="container">
+			<div class="section-header">
+				<h2>Choose Your Event</h2>
+			</div><!--/.section-header-->
+			<div class="works-content">
+				<div class="row">
+					{% for event in events %}
+					<div class="col-md-4 col-sm-6">
+						<div class="single-how-works">
+							<div class="single-how-works-icon">
+								<i class="flaticon-location-on-road"></i>
+							</div>
+							<h2><a href="#">{{ event.nom }}</a></h2>
+							<input type="checkbox" name="evenement[]" value="{{ event.id }}">
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div><!--/.container-->
+	</section><!--/.works-->
+	<!--event end -->
+
+<!--vehicule start -->
+<section id="works" class="works">
+    <div class="container">
+        <div class="section-header">
+            <h2>Choose Your Vehicule</h2>
+        </div><!--/.section-header-->
+        <div class="works-content">
+            <div class="row">
+                {% for vehicule in vehicules %}
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-location-on-road"></i>
+                        </div>
+                        <h2><a href="#">{{ vehicule.typeVehicule}}</a></h2>
+                        <input type="checkbox" name="vehicule[]" value="{{ vehicule.id}}">
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div><!--/.container-->
+</section><!--/.works-->
+<!--vehicule end -->
+
+<!--depart start -->
+<section id="works" class="works">
+    <div class="container">
+        <div class="section-header">
+            <h2>Choose Date Depart</h2>
+        </div><!--/.section-header-->
+        <div class="works-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-location-on-road"></i>
+                        </div>
+                        <h2>Depart</h2>
+                        <input type="date" id="datePickerDepart" name="depart">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.container-->
+</section><!--/.works-->
+<!--depart end -->
+
+<!--arrive start -->
+<section id="works" class="works">
+    <div class="container">
+        <div class="section-header">
+            <h2>Choose Date Arrivée</h2>
+        </div><!--/.section-header-->
+        <div class="works-content">
+            <div class="row">
+                <div class="col-md-4 col-sm-6">
+                    <div class="single-how-works">
+                        <div class="single-how-works-icon">
+                            <i class="flaticon-location-on-road"></i>
+                        </div>
+                        <h2>Arrivée</h2>
+                        <input type="date" id="datePickerArrivee" name="arrivee">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/.container-->
+</section><!--/.works-->
+<!--arrive end -->
+
+
+<!-- Create button -->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form id="voyageForm" action="{{ path('app_voyage_create_and_redirect') }}" method="post">
+                <!-- Hidden input fields -->
+                <input type="hidden" id="selectedHebergement" name="selected_hebergement">
+                <input type="hidden" id="selectedEvenement" name="selected_evenement">
+                <input type="hidden" id="selectedVehicule" name="selected_vehicule">
+                <input type="hidden" id="departDate" name="depart">
+                <input type="hidden" id="arriveeDate" name="arrivee">
+
+                <button type="button" onclick="submitForm()" class="btn btn-primary">Create Voyage</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    function submitForm() {
+        // Get selected checkboxes
+        var selectedHebergement = [];
+        var hebergementCheckboxes = document.querySelectorAll('input[name="hebergement[]"]:checked');
+        hebergementCheckboxes.forEach(function(checkbox) {
+            selectedHebergement.push(checkbox.value);
+        });
+
+        var selectedEvenement = [];
+        var evenementCheckboxes = document.querySelectorAll('input[name="evenement[]"]:checked');
+        evenementCheckboxes.forEach(function(checkbox) {
+            selectedEvenement.push(checkbox.value);
+        });
+
+        var selectedVehicule = [];
+        var vehiculeCheckboxes = document.querySelectorAll('input[name="vehicule[]"]:checked');
+        vehiculeCheckboxes.forEach(function(checkbox) {
+            selectedVehicule.push(checkbox.value);
+        });
+
+        // Get date picker values
+        var departDate = document.getElementById('datePickerDepart').value;
+        var arriveeDate = document.getElementById('datePickerArrivee').value;
+
+        // Set hidden input values
+        document.getElementById('selectedHebergement').value = JSON.stringify(selectedHebergement);
+        document.getElementById('selectedEvenement').value = JSON.stringify(selectedEvenement);
+        document.getElementById('selectedVehicule').value = JSON.stringify(selectedVehicule);
+        document.getElementById('departDate').value = departDate;
+        document.getElementById('arriveeDate').value = arriveeDate;
+
+        // Submit the form
+        document.getElementById('voyageForm').submit();
+    }
+</script>
+
+{% endblock %}
+

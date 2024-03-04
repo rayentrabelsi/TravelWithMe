@@ -100,4 +100,22 @@ class MoyTransportController extends AbstractController
 
         return $this->redirectToRoute('app_moy_transport_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('posts/search', name: 'search_transport')]
+    public function search_transport(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $searchQuery = $request->query->get('search_query');
+
+        $moyTransports= $entityManager->getRepository(MoyTransport::class)
+            ->createQueryBuilder('p')
+            ->where('p.transport_model LIKE :query')
+            ->orWhere('p.transport_description LIKE :query')
+            ->setParameter('query', '%' . $searchQuery . '%')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('moy_transport/index.html.twig', [
+            'moy_transports' => $moyTransports,
+        ]);
+    }
 }

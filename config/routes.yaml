@@ -1,3 +1,25 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+search_users:
+    path: /users/search
+    controller: App\Controller\UserController::searchUsers          
+search_post:
+  path: /posts/search
+  controller: 'App\Controller\PostController::search_post'
+search_transport:
+  path: /transports/search
+  controller: 'App\Controller\MoyTransportController::search_transport'  
+
+
+
+comment_like:
+  path: /comment/like/{id}
+  controller: App\Controller\CommentController::likeComment
+  methods: [POST]
+
+comment_dislike:
+  path: /comment/dislike/{id}
+  controller: App\Controller\CommentController::dislikeComment
+  methods: [POST]
+  # config/routes.yaml    
