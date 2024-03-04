@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MoyTransportRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
@@ -28,11 +29,19 @@ class MoyTransport
     #[ORM\Column(length: 255)]
     private ?string $disponibility = null;
 
-    #[ORM\OneToMany(mappedBy: 'transport', targetEntity: TransportReservation::class)]
-    private Collection $transportReservations;
-
     #[ORM\Column(length: 255)]
     private ?string $transport_picture = null;
+
+    #[ORM\OneToMany(mappedBy: 'transport', targetEntity: Calendar::class)]
+    private Collection $calendars;
+
+    #[ORM\OneToMany(mappedBy: 'transport', targetEntity: Voyage::class)]
+    private Collection $vehicule;
+
+    public function __construct()
+    {
+        $this->calendars = new ArrayCollection();
+    }
 
     public function getIdTransport(): ?int
     {
@@ -94,39 +103,9 @@ class MoyTransport
         return $this;
     }
     
-      /**
-     * @return Collection<int, TransportReservation>
-     */
-    public function getTransportReservations(): Collection
-    {
-        return $this->transportReservations;
-    }
-
-    public function addTransportReservation(TransportReservation $transportReservation): static
-    {
-        if (!$this->transportReservations->contains($transportReservation)) {
-            $this->transportReservations->add($transportReservation);
-            $transportReservation->setTransport($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTransportReservation(TransportReservation $transportReservation): static
-    {
-        if ($this->transportReservations->removeElement($transportReservation)) {
-            // set the owning side to null (unless already changed)
-            if ($transportReservation->getTransport() === $this) {
-                $transportReservation->setTransport(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function __toString()
     {
-        return (string) $this->getIdTransport();
+        return (string) $this->getTransportModel();
     }
 
     public function getTransportPicture(): ?string
@@ -137,6 +116,66 @@ class MoyTransport
     public function setTransportPicture(string $transport_picture): static
     {
         $this->transport_picture = $transport_picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Calendar>
+     */
+    public function getCalendars(): Collection
+    {
+        return $this->calendars;
+    }
+
+    public function addCalendar(Calendar $calendar): static
+    {
+        if (!$this->calendars->contains($calendar)) {
+            $this->calendars->add($calendar);
+            $calendar->setTransport($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCalendar(Calendar $calendar): static
+    {
+        if ($this->calendars->removeElement($calendar)) {
+            // set the owning side to null (unless already changed)
+            if ($calendar->getTransport() === $this) {
+                $calendar->setTransport(null);
+            }
+        }
+
+        return $this;
+    }
+
+     /**
+     * @return Collection<int, Calendar>
+     */
+    public function getVehicule(): Collection
+    {
+        return $this->vehicule;
+    }
+
+    public function addVehicule(Voyage $Vehicule): static
+    {
+        if (!$this->vehicule->contains($Vehicule)) {
+            $this->vehicule->add($Vehicule);
+            $Vehicule->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicule(Voyage $Vehicule): static
+    {
+        if ($this->calendars->removeElement($Vehicule)) {
+            // set the owning side to null (unless already changed)
+            if ($Vehicule->getVehicule() === $this) {
+                $Vehicule->setVehicule(null);
+            }
+        }
 
         return $this;
     }

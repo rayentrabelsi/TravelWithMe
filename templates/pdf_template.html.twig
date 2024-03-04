@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PDF Template</title>
+    <!-- Include any CSS styles needed for your PDF -->
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+        h1 {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            font-size: 20px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        p {
+            margin-bottom: 10px;
+        }
+        strong {
+            font-weight: bold;
+        }
+        /* Add more styles as needed */
+    </style>
+</head>
+<body>
+    <h1>Voyage Information</h1>
+    <h2>Hebergement Information</h2>
+    <p><strong>Lieu:</strong> {{ voyage.accomodation.lieu }}</p>
+    <h2>Vehicule Information</h2>
+    <p><strong>Type:</strong> {{ voyage.vehicule.TransportModel }}</p>
+    <h2>Evenement Information</h2>
+    <p><strong>Nom:</strong> {{ voyage.evenement.nom }}</p>
+
+    <h2>Additional Content</h2>
+    <p>"This comprehensive PDF document serves as an essential repository of critical information pertaining to your upcoming voyage. Within these digital pages, you will find detailed insights into every aspect of your journey, meticulously organized and presented for your convenience. From the accommodations at your chosen hebergement to the specifications of the selected vehicule, every detail has been carefully documented to ensure a seamless and enjoyable experience. Additionally, pertinent details regarding the scheduled events and activities during your voyage are meticulously outlined, providing you with a comprehensive itinerary to guide your adventures. This PDF file is more than just a document; it's your ultimate companion, offering invaluable insights and guidance as you embark on your voyage of discovery and exploration." .</p>
+
+    <!-- Signature Section -->
+    <div class="signature">
+        <h2>Signature</h2>
+        <p>Sign below to confirm your acceptance of the terms and conditions.</p>
+    </div>
+</body>
+</html>

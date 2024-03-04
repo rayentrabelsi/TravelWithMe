@@ -5,120 +5,111 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Scheb\TwoFactorBundle\Model\Email\TwoFactorInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class User implements UserInterface, PasswordAuthenticatedUserInterface, TwoFactorInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $authCode = null;
 
     #[ORM\Column]
-    private ?int $id_customer = null;
+    private array $roles = [];
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom = null;
+    #[ORM\OneToOne(targetEntity: "App\Entity\Voyage", mappedBy: "utilisateur")]
+    private $voyage;
 
-    #[ORM\Column(length: 255)]
-    private ?string $prenom = null;
+    #[ORM\OneToOne(targetEntity: "App\Entity\Groupe", mappedBy: "utilisateur")]
+    private $groupe;
 
-    #[ORM\Column(type: Types::BLOB)]
-    private $image = null;
-
+    /**
+     * @var string The hashed password
+     */
     #[ORM\Column]
-    private ?int $numero = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $Email = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $adresse = null;
+    private ?string $lastname = null;
 
-    #[ORM\OneToMany(mappedBy: 'customer', targetEntity: TransportReservation::class)]
-    private Collection $transportReservations;
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Booking::class)]
+    private Collection $bookings;
 
     public function __construct()
     {
-        $this->transportReservations = new ArrayCollection();
+        $this->bookings = new ArrayCollection();
     }
 
-    public function getIdCustomer(): ?int
+    public function getId(): ?int
     {
-        return $this->id_customer;
-    }
-
-    public function setIdCustomer(int $id_customer): static
-    {
-        $this->id_customer = $id_customer;
-
-        return $this;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getPrenom(): ?string
-    {
-        return $this->prenom;
-    }
-
-    public function setPrenom(string $prenom): static
-    {
-        $this->prenom = $prenom;
-
-        return $this;
-    }
-
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    public function setImage($image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    public function getNumero(): ?int
-    {
-        return $this->numero;
-    }
-
-    public function setNumero(int $numero): static
-    {
-        $this->numero = $numero;
-
-        return $this;
+        return $this->id;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(string $Email): static
+    public function setEmail(string $email): static
     {
-        $this->Email = $Email;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -130,42 +121,109 @@ class User
         return $this;
     }
 
-    public function getAdresse(): ?string
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
     {
-        return $this->adresse;
+        return null;
     }
 
-    public function setAdresse(string $adresse): static
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
     {
-        $this->adresse = $adresse;
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
+    }
+
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
+    }
+
+    public function setLastname(string $lastname): static
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    public function isEmailAuthEnabled(): bool
+    {
+        return true;
+    }
+
+    public function getEmailAuthRecipient(): string
+    {
+        return $this->email;
+    }
+
+    public function getEmailAuthCode(): ?string
+    {
+        if (null === $this->authCode){
+		throw new \logicException('The email authentication code was not set');
+        }
+	    return $this->authCode;
+    }
+
+    public function setEmailAuthCode(string $authCode): void
+    {
+        $this->authCode = $authCode;
+    }
+
+    public function getVoyage(): ?Voyage
+    {
+        return $this->voyage;
+    }
+
+    public function setVoyage(?Voyage $voyage): self
+    {
+        $this->voyage = $voyage;
+
+        return $this;
+    }
+
+    public function getGroupe(): ?Groupe
+    {
+        return $this->groupe;
+    }
+
+    public function setGroupe(?Groupe $groupe): self
+    {
+        $this->groupe = $groupe;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, TransportReservation>
+     * @return Collection<int, Booking>
      */
-    public function getTransportReservations(): Collection
+    public function getBookings(): Collection
     {
-        return $this->transportReservations;
+        return $this->bookings;
     }
 
-    public function addTransportReservation(TransportReservation $transportReservation): static
+    public function addBooking(Booking $booking): static
     {
-        if (!$this->transportReservations->contains($transportReservation)) {
-            $this->transportReservations->add($transportReservation);
-            $transportReservation->setCustomer($this);
+        if (!$this->bookings->contains($booking)) {
+            $this->bookings->add($booking);
+            $booking->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeTransportReservation(TransportReservation $transportReservation): static
+    public function removeBooking(Booking $booking): static
     {
-        if ($this->transportReservations->removeElement($transportReservation)) {
+        if ($this->bookings->removeElement($booking)) {
             // set the owning side to null (unless already changed)
-            if ($transportReservation->getCustomer() === $this) {
-                $transportReservation->setCustomer(null);
+            if ($booking->getUser() === $this) {
+                $booking->setUser(null);
             }
         }
 
@@ -174,6 +232,7 @@ class User
 
     public function __toString()
     {
-        return (string) $this->getIdCustomer();
+        return $this->getEmail();
     }
+
 }

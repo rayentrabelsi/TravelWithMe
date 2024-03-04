@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+               <!--[if lte IE 9]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+        <![endif]-->
+
+
+		<!-- top-area Start -->
+		<section class="top-area">
+			<div class="header-area">
+				<!-- Start Navigation -->
+			    <nav class="navbar navbar-default bootsnav  navbar-sticky navbar-scrollspy"  data-minus-value-desktop="70" data-minus-value-mobile="55" data-speed="1000">
+
+			        <div class="container">
+
+			            <!-- Start Header Navigation -->
+			            <div class="navbar-header">
+			                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
+			                    <i class="fa fa-bars"></i>
+			                </button>
+			                <a class="navbar-brand" href="index.html">Travel<span>with me</span></a>
+
+			            </div><!--/.navbar-header-->
+			            <!-- End Header Navigation -->
+
+			            <!-- Collect the nav links, forms, and other content for toggling -->
+			            <div class="collapse navbar-collapse menu-ui-design" id="navbar-menu">
+			                <ul class="nav navbar-nav navbar-right" data-in="fadeInDown" data-out="fadeOutUp">
+			                    <li class="scroll active"><a href="{{ path('main') }}">home</a></li>
+			                    <li class="scroll"><a href="#works">how it works</a></li>
+			                    <li class="scroll"><a href="#explore">explore</a></li>
+			                    <li class="scroll"><a href="#reviews">review</a></li>
+			                    <li class="scroll"><a href="#blog">forum</a></li>
+			                    <li class="scroll"><a href="#contact">contact</a></li>
+								<li class="scroll"><a href="user/html_user/pages-account-settings-account.html">Account</a></li>
+			                </ul><!--/.nav -->
+			            </div><!-- /.navbar-collapse -->
+
+
+			        </div><!--/.container-->
+			    </nav><!--/nav-->
+			    <!-- End Navigation -->
+			</div><!--/.header-area-->
+		    <div class="clearfix"></div>
+
+		</section><!-- /.top-area-->
+		<!-- top-area End -->
+
+<script>
+    document.getElementById('getLocationBtn').addEventListener('click', function() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+        } else {
+            console.log('Geolocation is not supported by this browser.');
+        }
+    });
+
+    function successCallback(position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        // Now you can send the latitude and longitude to your server
+        // Example using fetch API:
+        fetch('/update-location', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ latitude: latitude, longitude: longitude }),
+        })
+        .then(response => {
+            // Handle response from server
+            console.log('Location updated successfully.');
+        })
+        .catch(error => {
+            console.error('Error sending location data to server:', error);
+        });
+    }
+
+    function errorCallback(error) {
+        console.log('Error occurred while retrieving geolocation:', error);
+    }
+</script>
+
+
+
+<div class="container my-custom-container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-md-6">
+            <form action="{{ path('chat') }}" method="POST" class="my-4">
+                <div class="input-group">
+                    <input type="text" name="input" class="form-control" placeholder="Ask a question...">
+                    <button type="submit" class="btn btn-primary">Ask</button>
+                </div>
+            </form>
+
+            <!-- Display the generated responses -->
+            {% if chat_responses is defined and chat_responses is not empty %}
+                <div class="mt-4">
+                    {% for response in chat_responses %}
+                        <div class="alert alert-info" role="alert">
+                            {{ response }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <p class="text-center font-weight-bold display-10">Use our chatbox to learn more</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% if generated_text is defined %}
+        <div class="generated-text">
+            {{ generated_text }}
+        </div>
+    {% endif %}
+</div>
+
+
+
+
+	
+        {% endblock %}
